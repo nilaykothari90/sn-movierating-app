@@ -1,0 +1,37 @@
+<!doctype html>
+<html ng-app="movieApp">
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
+    <script src="app.js"></script>
+    <script type="text/javascript" src="dist/min/main.min.js"></script>
+    <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="js/angular-fusioncharts.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="dist/min/main.min.css">
+  </head>
+  <body ng-controller="moviesController">
+    	<div class="container" style="width:60%; margin:0 auto;">
+    		<div class="row">
+    			<div class="col-lg-12">
+    				<h3>Movie Verdicts</h3>
+            Sort By: <select ng-model="selectedName" ng-change="updateSelection()" ng-options="x for x in options"></select>
+    			</div>
+          <div ng-repeat="mdata in movies | orderBy: sortBy">
+      			<div class="col-lg-4 col-md-4 col-sm-6">
+                  <img src="{{mdata.image}}"/>
+                  <p>{{mdata.title}}</p>
+                  <p>{{mdata.releaseDate}}</p>
+                  <p>{{mdata.rate}}{{mdata.rating}}</p>
+                  <angular-star-rating max="maxValue" value="mdata.rating" hover='changeOnHover'
+                           is-readonly='mdata.readonly' ng-click="updateRating(mdata)"></angular-star-rating>
+            </div>
+          </div class="row">
+              <fusioncharts width= "85%" height= "400" type= "column2d" dataFormat= "json" dataSource= "{{dataSource}}">
+              </fusioncharts>
+        </div>
+      </div>
+  </body>
+</html>
